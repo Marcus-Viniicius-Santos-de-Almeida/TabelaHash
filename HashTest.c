@@ -2,39 +2,81 @@
 #include <stdlib.h>
 #include <string.h>
 #include "Hash.h"
+#include "log.h"
+#define TAM 100
 
-/*typedef struct Cliente {
-    char nome[50];
-    char email[50];
-}Cliente;
-*/
-/*bool comparaChaves(void *key, void *data) {
-    char *chave = (char*)key;
-    Cliente *c = (Cliente*)data;
-    return (strcmp (chave, c->email) == 0)?true:false;
-}
-*/
-/*void printCliente(void *data) {
-    Cliente *cliente = (Cliente*)data;
-    printf("{%s,%s} - ", cliente->nome, cliente->email);
-}
-*/
+typedef struct Palavra {
+    char palavra[TAM];
+}Palavra;
 
 bool comparaPalavras(void *key, void *data) {
     char *chave = (char*)key;
-    Cliente *c = (Cliente*)data;
-    return (strcmp (chave, c->email) == 0)?true:false;
+    Palavra *p = (Palavra*)data;
+    return (strcmp (chave, p->palavra) == 0)?true:false;
+}
+
+void printPalavra(void *data) {
+    Palavra *palavrav = (Palavra*)data;
+    printf("{%s} - ", palavrav->palavra);
+}
+
+/*
+int Colisoes (HashStruct * hashStruct, char *key)
+{
+  int hashValue = hash (key);
+  int c = 0;
+  for(int i=0; i<MAX; i++){
+      if (hash(hashStruct->hashes[i].first->data)==hashValue){
+          c++;
+      }
+  }
+  return c;
+}*/
 
 int main() {
+    FILE *file = fopen("program.log","w");
+	log_set_level(LOG_INFO);
+	log_add_fp(file, LOG_TRACE);
     FILE *ListaPalavras;
+    FILE *Espalhamento;
+    int n=0;
+    char linha[TAM], VetorPalavras[40000][TAM];
     ListaPalavras = fopen("ListaDePalavrasPT.txt", "r");
+    Espalhamento = fopen("Espalhamento.ppm", "w");
+
     HashStruct hashes;
     initHash(&hashes);
-    char palavra[50];
-    put(&hashes, palavra, palavra, comparaPalavras)
 
-    fclose(palavras);
+    while(fgets(linha, TAM, ListaPalavras)){
+       sscanf(linha, "%s", VetorPalavras[n]);
+       log_debug("VetorPalavras na posição %d: %s", n, VetorPalavras[n]);
+       n++;
+    }
+    Palavra *p = (Palavra *)malloc(sizeof(Palavra));
+    for(int i=0; i<n; i++){
 
+    strcpy(p->palavra,VetorPalavras[i]);
+    
+        printf("%s\n",p->palavra);    
+    put(&hashes, p->palavra, p, comparaPalavras);
+    p = (Palavra *)malloc(sizeof(Palavra));
+    
+    }
+    
+    showHashStruct(&hashes, printPalavra);
+    printf("%d ",maiorcolisao(&hashes));
+
+    int inter=256/maiorcolisoo(&hashes);
+
+    
+
+/*    /*for(int k=0; k<MAX; k++){
+        printf("palavra %d: %s\n", k, VetorPalavras[k]);
+    }
+    free(p);*/
+
+    fclose(ListaPalavras);
+    fclose(Espalhamento);
 
     /*HashStruct hashes;
     initHash(&hashes);
@@ -52,8 +94,8 @@ int main() {
     c = (Cliente *)malloc(sizeof(Cliente));
     strcpy(c->nome,"Maria") ;
     strcpy(c->email,"maria@email.br");
-    put(&hashes, c->email, c, comparaChaves);
-    c = (Cliente *)malloc(sizeof(Cliente));
+  , comparaChaves);
+    c = (Cliente   put(&hashes, c->email, c*)malloc(sizeof(Cliente));
     strcpy(c->nome,"Pedro") ;
     strcpy(c->email,"pedro@email.com.br");
     put(&hashes, c->email, c, comparaChaves);

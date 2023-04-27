@@ -36,6 +36,16 @@ int put(HashStruct *hashStruct, char *key, void *data, compare equal) {
     return 0;
 }
 
+int maiorcolisao(HashStruct *hashStruct){
+    int m=0;
+    for (int i=0; i < MAX; i++) {
+        if(hashStruct->hashes[i].size>m){
+            m = hashStruct->hashes[i].size;
+        }
+    }
+    return m;
+}
+
 bool containsKey(HashStruct *hashStruct, char *key, compare equal) {
     //calcula a posição
     int hashValue = hash(key);
