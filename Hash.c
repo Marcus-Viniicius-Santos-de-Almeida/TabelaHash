@@ -20,7 +20,7 @@ int hash(char *key) {
     // percorremos todos os caracteres da string passada
     for (int i = 0; key[i]!=0;i++) {
         //acumulamos os códigos ascii de cada letra com um peso
-        sum+=key[i]*(i+1);
+        sum+=key[i]*(i+1000);
     }
     return sum%MAX; //retorna o resto da divisão
 }

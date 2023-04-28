@@ -11,6 +11,7 @@ typedef struct HashStruct {
 void initHash(HashStruct *hashStruct);
 bool isHashEmpty(HashStruct *hashStruct);
 int hash(char *key);
+void gravarq(HashStruct *hashStruct,int num);
 int maiorcolisao(HashStruct *hashStruct);
 int put(HashStruct *hashStruct, char *key, void *data, compare equal);
 bool containsKey(HashStruct *hashStruct, char *key, compare equal);
